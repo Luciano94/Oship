@@ -7,5 +7,6 @@ package;
 class Reg 
 {
 	//Player
-	static public var speed:Int = 100;
+	static public var maxSpeed:Int = 50;
+	static public var maxAngSpeed:Int = 30;
 }
