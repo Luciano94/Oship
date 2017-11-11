@@ -6,24 +6,28 @@ import flixel.text.FlxText;
 import flixel.ui.FlxButton;
 import flixel.FlxG;
 import AssetPaths;
+import flixel.util.FlxSpriteUtil;
 
 class MenuState extends FlxState
 {
 	private var title:FlxText;
 	private var playButton:FlxButton;
 	private var fondo:FlxSprite;
+	private var logo:FlxSprite;
 	
 	override public function create():Void
 	{
 		super.create();
 		fondo = new FlxSprite();
 		fondo.loadGraphic(AssetPaths.StartMenu__png);
+		fondo.updateFramePixels();
 		add(fondo); //Tiene un zoom que corregir. No muestra el asset correctamente.
-		this.
 		
-		title = new FlxText(0, FlxG.height / 4, 0, "Oship", 12, true);
-		title.screenCenter(X);
-		add(title);
+		logo = new FlxSprite();
+		logo.loadGraphic(AssetPaths.Logo__png);
+		logo.alpha = 0;
+		add(logo);
+		FlxSpriteUtil.fadeIn(logo, 4, false);
 		
 		playButton = new FlxButton(0, 0, "Play", clickPlay);
 		playButton.screenCenter();
