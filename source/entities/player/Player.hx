@@ -12,7 +12,6 @@ import flixel.FlxG;
  */
 class Player extends FlxSprite 
 {
-	private var bullet:Bullet;
 	private var canShot:Bool;
 	private var direccion:Int;
 

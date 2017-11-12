@@ -14,12 +14,17 @@ import flixel.FlxG;
 class PlayerOne extends Player 
 {
 	private var distShot:Int;
+	private var bullet:BulletOne;
 	
 	public function new(?X:Float=0, ?Y:Float=0) 
 	{
 		super(X, Y);
 		//Init
-		makeGraphic(16, 32, FlxColor.RED);
+		loadGraphic(AssetPaths.pirate_ship_00000__png);
+		scale.set(0.5, 0.5);
+		width = 250;
+		height = 250;
+		updateHitbox();
 		distShot = 0;
 	}
 	
@@ -166,10 +171,12 @@ class PlayerOne extends Player
 		if (FlxG.keys.pressed.RIGHT)
 		{
 			angularVelocity += 1;
+			updateHitbox();
 		}
 		if (FlxG.keys.pressed.LEFT)
 		{
 			angularVelocity -= 1;
+			updateHitbox();
 		}
 		if (breck())
 		{
@@ -211,21 +218,26 @@ class PlayerOne extends Player
 				distShot = Reg.minDistShot;
 			if (canShot)
 			{
-				bullet = new Bullet(x, y, distShot, direccion);
-				Reg.bulAlive = true;
+				bullet = new BulletOne(x, y, distShot, direccion);
+				Reg.bulAliveOne = true;
 				FlxG.state.add(bullet);
 				canShot = false;
 			}
 			distShot = 0;
 		} 
-		if (Reg.bulAlive)
+		if (Reg.bulAliveOne)
 		{
 			if (bullet.getShot() == 0)
 			{
-				Reg.bulAlive = false;
+				Reg.bulAliveOne = false;
 				bullet.destroy();
 				canShot = true;
 			}
 		}
+	}
+
+	public function getBullet(): BulletOne
+	{
+		return bullet;
 	}
 }

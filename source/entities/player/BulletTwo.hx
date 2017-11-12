@@ -8,8 +8,9 @@ import flixel.util.FlxColor;
  * ...
  * @author holis
  */
-class Bullet extends FlxSprite 
+class BulletTwo extends FlxSprite 
 {
+
 	private var distShot: Int;
 	private var direccion: Int;
 
@@ -49,4 +50,5 @@ class Bullet extends FlxSprite
 	{
 		return distShot;
 	}
+	
 }
