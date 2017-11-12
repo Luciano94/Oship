@@ -3,6 +3,7 @@ package source.states;
 import entities.animaciones.SpriteMoneda;
 import entities.player.Player;
 import entities.player.PlayerOne;
+import entities.player.PlayerTwo;
 import flixel.FlxState;
 
 class PlayState extends FlxState

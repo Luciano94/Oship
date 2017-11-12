@@ -12,12 +12,16 @@ import flixel.FlxG;
  */
 class Player extends FlxSprite 
 {
+	private var bullet:Bullet;
+	private var canShot:Bool;
+	private var direccion:Int;
 
 	public function new(?X:Float=0, ?Y:Float=0) 
 	{
 		super(X, Y);
 		velocity.x = 0;
 		angularVelocity = 0;
+		canShot = true;
 	}
 	
 	override public function update(elapsed:Float):Void 
@@ -25,10 +29,10 @@ class Player extends FlxSprite
 		super.update(elapsed);
 		movement();
 		shot();
+		distanceShot();
 		accelerationControl();
 		breck();
-		//trace (velocity.x);
-		trace (angle);
+		trace("angle: " + angle);
 	}
 	
 	private function breck():Bool
@@ -72,9 +76,34 @@ class Player extends FlxSprite
 		//implementar en clase derivada
 	}
 	
-	private function shot():Void
+	private function distanceShot():Void
 	{
 		//implementar en clase derivada
 	}
 	
+	private function shot():Void 
+	{
+		if (angle >= 0)
+		{
+			if (angle > 0 && angle < 88)
+				direccion = 1;
+			if (angle > 88 && angle < 178)
+				direccion = 2;
+			if (angle > 178 && angle < 268)
+				direccion = 3;
+			if (angle > 268 && angle < 0)
+				direccion = 4;
+		}
+		else
+		{
+			if (angle < 0 && angle > -88)
+				direccion = 4;
+			if (angle < -88 && angle > -178)
+				direccion = 3;
+			if (angle < -178 && angle > -268)
+				direccion = 2;
+			if (angle < -268 && angle > -360)
+				direccion = 1;
+		}
+	}
 }
