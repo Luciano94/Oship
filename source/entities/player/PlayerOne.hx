@@ -31,7 +31,28 @@ class PlayerOne extends Player
 	{
 		if (FlxG.keys.pressed.UP)
 		{
-			
+			if (angle == 0)
+				velocity.y -= 1;
+			if (angle > 0 && angle < 90)
+			{
+				velocity.y -= 1;
+				velocity.x += 1;
+			}
+			if (angle > 91 &&  angle < 180)
+			{
+				velocity.y += 1;
+				velocity.y += 1;
+			}
+			if (angle > 181 && angle < 270)
+			{
+				velocity.x -= 1;
+				velocity.y += 1;
+			}
+			if (angle > 271 && angle < 360)
+			{
+				velocity.x -= 1;
+				velocity.y -= 1;
+			}
 		}
 		if (FlxG.keys.pressed.DOWN)
 		{
