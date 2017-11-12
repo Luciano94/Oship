@@ -24,7 +24,7 @@ class OptionSubState extends FlxSubState
 	private var sfxMen:FlxButton;
 	private var sfxMas:FlxButton;
 	private var volver:FlxButton;
-	public function new(BGColor:FlxColor=0x55FFFFFF) 
+	public function new(BGColor:FlxColor=0xD0000000) 
 	{
 		super(BGColor);
 		musicVal = FlxG.sound.music.volume * 10;
@@ -96,7 +96,9 @@ class OptionSubState extends FlxSubState
 		if (musicVal <10) 
 		{
 			FlxG.sound.music.volume += 0.1;
+			
 			musicVal = FlxG.sound.music.volume * 10;
+			
 			musicValText.text = Std.string(musicVal);
 		}
 	}
@@ -105,6 +107,10 @@ class OptionSubState extends FlxSubState
 		if (musicVal >0) 
 		{
 			FlxG.sound.music.volume -= 0.1;
+			if (FlxG.sound.music.volume<0.1) 
+			{
+				FlxG.sound.music.volume = 0;
+			}
 			musicVal = FlxG.sound.music.volume * 10;
 			musicValText.text = Std.string(musicVal);
 		}
@@ -123,6 +129,10 @@ class OptionSubState extends FlxSubState
 		if (sfxVal>0) 
 		{
 			FlxG.sound.volume -= 0.1;
+			if (FlxG.sound.volume<0.1) 
+			{
+				FlxG.sound.volume = 0;
+			}
 			sfxVal = FlxG.sound.volume * 10;
 			sfxValText.text = Std.string(sfxVal);
 		}

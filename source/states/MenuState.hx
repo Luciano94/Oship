@@ -20,6 +20,7 @@ class MenuState extends FlxState
 	private var logo:FlxSprite;
 	private var exitButton:FlxButton;
 	private var storeButton:FlxButton;
+	private var comoButton:FlxButton;
 	override public function create():Void
 	{
 		super.create();
@@ -39,6 +40,8 @@ class MenuState extends FlxState
 		logo.loadGraphic(AssetPaths.Logo__png);
 		logo.scale.set(1.5, 1.2);
 		logo.updateHitbox();
+		logo.x = 50;
+		logo.y = 50;
 		add(logo);
 		
 		playButton = new FlxButton("", clickPlay);
@@ -48,19 +51,19 @@ class MenuState extends FlxState
 		playButton.y = logo.y + logo.height + playButton.height;
 		add(playButton);
 		
+		comoButton = new FlxButton("", clickComo);
+		comoButton.loadGraphic(AssetPaths.comoJugar__png);
+		comoButton.updateHitbox();
+		comoButton.x = 50;
+		comoButton.y = playButton.y + playButton.height;
+		add(comoButton);
+		
 		optionButton = new FlxButton("", clickOption);
 		optionButton.loadGraphic(AssetPaths.Opciones__png);
 		optionButton.updateHitbox();
 		optionButton.x = 50;
-		optionButton.y = playButton.y + playButton.height;
+		optionButton.y = comoButton.y + comoButton.height;
 		add(optionButton);
-		
-		exitButton = new FlxButton("", salir);
-		exitButton.loadGraphic(AssetPaths.salir__png);
-		exitButton.updateHitbox();
-		exitButton.x = camera.width - exitButton.width - 50;
-		exitButton.y = camera.height - exitButton.height - 50;
-		add(exitButton);
 		
 		storeButton = new FlxButton("",clickStore);
 		storeButton.loadGraphic(AssetPaths.tienda__png);
@@ -68,6 +71,13 @@ class MenuState extends FlxState
 		storeButton.x = 50;
 		storeButton.y = optionButton.y + optionButton.height;
 		add(storeButton);
+		
+		exitButton = new FlxButton("", salir);
+		exitButton.loadGraphic(AssetPaths.salir__png);
+		exitButton.updateHitbox();
+		exitButton.x = camera.width - exitButton.width - 50;
+		exitButton.y = camera.height - exitButton.height - 50;
+		add(exitButton);
 	}
 
 	override public function update(elapsed:Float):Void
@@ -89,6 +99,10 @@ class MenuState extends FlxState
 		System.exit(0);
 	}
 	private function clickStore():Void
+	{
+		
+	}
+	private function clickComo():Void
 	{
 		
 	}
