@@ -9,6 +9,7 @@ import flixel.FlxG;
 import AssetPaths;
 import flixel.util.FlxSpriteUtil;
 import states.OptionSubState;
+import openfl.system.System;
 
 class MenuState extends FlxState
 {
@@ -17,11 +18,15 @@ class MenuState extends FlxState
 	private var optionButton:FlxButton;
 	private var fondo:FlxSprite;
 	private var logo:FlxSprite;
+	private var exitButton:FlxButton;
+	private var storeButton:FlxButton;
 	override public function create():Void
 	{
 		super.create();
+		
 		camera = new FlxCamera(0, 0, 1920, 1080);
 		camera.bgColor = 0x00000000;
+		
 		fondo = new FlxSprite();
 		fondo.loadGraphic(AssetPaths.StartMenu__png);
 		fondo.updateHitbox();
@@ -32,20 +37,37 @@ class MenuState extends FlxState
 		
 		logo = new FlxSprite();
 		logo.loadGraphic(AssetPaths.Logo__png);
-		logo.alpha = 0;
 		logo.scale.set(1.5, 1.2);
 		logo.updateHitbox();
 		add(logo);
-		FlxSpriteUtil.fadeIn(logo, 4, false);
 		
-		playButton = new FlxButton(0, 0, "Play", clickPlay);
-		playButton.screenCenter();
+		playButton = new FlxButton("", clickPlay);
+		playButton.loadGraphic(AssetPaths.jugar__png);
+		playButton.updateHitbox();
+		playButton.x = 50;
+		playButton.y = logo.y + logo.height + playButton.height;
 		add(playButton);
 		
-		optionButton = new FlxButton("Opciones",clickOption);
-		optionButton.screenCenter();
-		optionButton.y += playButton.height;
+		optionButton = new FlxButton("", clickOption);
+		optionButton.loadGraphic(AssetPaths.Opciones__png);
+		optionButton.updateHitbox();
+		optionButton.x = 50;
+		optionButton.y = playButton.y + playButton.height;
 		add(optionButton);
+		
+		exitButton = new FlxButton("", salir);
+		exitButton.loadGraphic(AssetPaths.salir__png);
+		exitButton.updateHitbox();
+		exitButton.x = camera.width - exitButton.width - 50;
+		exitButton.y = camera.height - exitButton.height - 50;
+		add(exitButton);
+		
+		storeButton = new FlxButton("",clickStore);
+		storeButton.loadGraphic(AssetPaths.tienda__png);
+		storeButton.updateHitbox();
+		storeButton.x = 50;
+		storeButton.y = optionButton.y + optionButton.height;
+		add(storeButton);
 	}
 
 	override public function update(elapsed:Float):Void
@@ -61,5 +83,13 @@ class MenuState extends FlxState
 	private function clickOption():Void
 	{
 		openSubState(new OptionSubState());
+	}
+	private function salir():Void
+	{
+		System.exit(0);
+	}
+	private function clickStore():Void
+	{
+		
 	}
 }
