@@ -8,6 +8,7 @@ import flixel.ui.FlxButton;
 import flixel.FlxG;
 import AssetPaths;
 import flixel.util.FlxSpriteUtil;
+import states.AdSubState;
 import states.OptionSubState;
 import openfl.system.System;
 
@@ -19,7 +20,6 @@ class MenuState extends FlxState
 	private var fondo:FlxSprite;
 	private var logo:FlxSprite;
 	private var exitButton:FlxButton;
-	private var storeButton:FlxButton;
 	private var comoButton:FlxButton;
 	override public function create():Void
 	{
@@ -65,13 +65,6 @@ class MenuState extends FlxState
 		optionButton.y = comoButton.y + comoButton.height;
 		add(optionButton);
 		
-		storeButton = new FlxButton("",clickStore);
-		storeButton.loadGraphic(AssetPaths.tienda__png);
-		storeButton.updateHitbox();
-		storeButton.x = 50;
-		storeButton.y = optionButton.y + optionButton.height;
-		add(storeButton);
-		
 		exitButton = new FlxButton("", salir);
 		exitButton.loadGraphic(AssetPaths.salir__png);
 		exitButton.updateHitbox();
@@ -98,12 +91,8 @@ class MenuState extends FlxState
 	{
 		System.exit(0);
 	}
-	private function clickStore():Void
-	{
-		
-	}
 	private function clickComo():Void
 	{
-		
+		openSubState(new AdSubState());
 	}
 }
