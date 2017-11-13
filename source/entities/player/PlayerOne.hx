@@ -20,10 +20,8 @@ class PlayerOne extends Player
 	{
 		super(X, Y);
 		//Init
-		loadGraphic(AssetPaths.pirate_ship_00000__png);
+		loadGraphic(AssetPaths.Player_One__png);
 		scale.set(0.5, 0.5);
-		width = 250;
-		height = 250;
 		updateHitbox();
 		distShot = 0;
 	}
