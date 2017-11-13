@@ -20,7 +20,7 @@ class PlayerTwo extends Player
 	{
 		super(X, Y);
 		//Init
-		loadGraphic(AssetPaths.pirate_ship_00000__png);
+		loadGraphic(AssetPaths.Player_Two__png);
 		scale.set(0.5, 0.5);
 		updateHitbox();
 		distShot = 0;
