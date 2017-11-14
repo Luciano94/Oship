@@ -9,6 +9,7 @@ import flixel.FlxG;
 import AssetPaths;
 import flixel.util.FlxSpriteUtil;
 import states.AdSubState;
+import states.BattleState;
 import states.OptionSubState;
 import openfl.system.System;
 
@@ -33,7 +34,7 @@ class MenuState extends FlxState
 		fondo.updateHitbox();
 		add(fondo);
 		
-		FlxG.sound.load();
+		//FlxG.sound.load();
 		FlxG.sound.playMusic(AssetPaths.menuScreen__ogg,1,true);
 		
 		logo = new FlxSprite();
@@ -81,7 +82,7 @@ class MenuState extends FlxState
 	private function clickPlay():Void
 	{
 		FlxG.sound.music.stop();
-		FlxG.switchState(new PlayState());
+		openSubState(new BattleState());
 	}
 	private function clickOption():Void
 	{

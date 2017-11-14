@@ -1,6 +1,7 @@
 package entities.player;
 
 import flixel.FlxSprite;
+import flixel.FlxSubState;
 import flixel.system.FlxAssets.FlxGraphicAsset;
 import flixel.util.FlxColor;
 import flixel.FlxSprite;
@@ -16,34 +17,40 @@ class PlayerOne extends FlxSprite
 {
 	private var distShot:Int;
 	public var bullet:BulletOne;
-	private var distanceBar:FlxBar;
+	private var lifeBar:FlxBar;
 	private var canShot:Bool;
 	private var direccion:Int;
+	private var subst:FlxSubState;
+	private var life:Int;
 	
-	public function new(?X:Float=0, ?Y:Float=0) 
+	public function new(?X:Float = 0, ?Y:Float = 0, _subst:FlxSubState) 
 	{
 		super(X, Y);
 		//Init
 		velocity.x = 0;
 		angularVelocity = 0;
 		canShot = true;
+		life = Reg.maxPlayerLife;
 		loadGraphic(AssetPaths.Player_One__png);
 		scale.set(0.5, 0.5);
 		updateHitbox();
 		distShot = 0;
-		distanceBar = new FlxBar(x, y, FlxBarFillDirection.LEFT_TO_RIGHT, 100, 20, this, "distShot", 0, Reg.maxDistShot, true);
-		FlxG.state.add(distanceBar);
+		subst = _subst;
+		lifeBar = new FlxBar(x, y, FlxBarFillDirection.LEFT_TO_RIGHT, 100, 20, this, "life", 0, Reg.maxPlayerLife, true);
+		subst.add(lifeBar);
 	}
 	
 	override public function update(elapsed:Float):Void 
 	{
 		super.update(elapsed);
-		distanceBar.setPosition(x, y);
+		lifeBar.setPosition(x, y);
 		movement();
 		shot();
 		distanceShot();
 		accelerationControl();
 		breck();
+		checkBoundaries();
+		trace("tu vieja: " + Reg.bulAliveOne + " esta: " + canShot);
 	}
 	
 	private function shot():Void 
@@ -114,23 +121,23 @@ class PlayerOne extends FlxSprite
 					velocity.x -= 1;
 				if (angle > 0 && angle < 89)
 				{
-					velocity.y -= 1;
-					velocity.x += 1;
+					velocity.y -= 0.5;
+					velocity.x += 0.5;
 				}
 				if (angle > 91 &&  angle < 179)
 				{
-					velocity.x += 1;
-					velocity.y += 1;
+					velocity.x += 0.5;
+					velocity.y += 0.5;
 				}
 				if (angle > 181 && angle < 269)
 				{
-					velocity.x -= 1;
-					velocity.y += 1;
+					velocity.x -= 0.5;
+					velocity.y += 0.5;
 				}
 				if (angle > 271 && angle < 360)
 				{
-					velocity.x -= 1;
-					velocity.y += 1;
+					velocity.x -= 0.5;
+					velocity.y += 0.5;
 				}
 			}
 			/*negativos*/
@@ -144,23 +151,23 @@ class PlayerOne extends FlxSprite
 					velocity.x += 1;
 				if (angle < 0 && angle > -89)
 				{
-					velocity.y -= 1;
-					velocity.x -= 1;
+					velocity.y -= 0.5;
+					velocity.x -= 0.5;
 				}
 				if (angle < -91 &&  angle > -179)
 				{
-					velocity.x -= 1;
-					velocity.y += 1;
+					velocity.x -= 0.5;
+					velocity.y += 0.5;
 				}
 				if (angle < -181 && angle > -269)
 				{
-					velocity.x += 1;
-					velocity.y += 1;
+					velocity.x += 0.5;
+					velocity.y += 0.5;
 				}
 				if (angle < -271 && angle > -360)
 				{
-				velocity.x += 1;
-				velocity.y -= 1;
+				velocity.x += 0.5;
+				velocity.y -= 0.5;
 			}
 			}
 		}
@@ -179,23 +186,23 @@ class PlayerOne extends FlxSprite
 					velocity.x += 1;
 				if (angle > 0 && angle < 89)
 				{
-					velocity.y += 1;
-					velocity.x -= 1;
+					velocity.y += 0.5;
+					velocity.x -= 0.5;
 				}
 				if (angle > 91 &&  angle < 179)
 				{
-					velocity.x -= 1;
-					velocity.y -= 1;
+					velocity.x -= 0.5;
+					velocity.y -= 0.5;
 				}
 				if (angle > 181 && angle < 269)
 				{
-					velocity.x += 1;
-					velocity.y -= 1;
+					velocity.x += 0.5;
+					velocity.y -= 0.5;
 				}
 				if (angle > 271 && angle < 360)
 				{
-				velocity.x += 1;
-				velocity.y += 1;
+				velocity.x += 0.5;
+				velocity.y += 0.5;
 			}
 			}
 			/*negativos*/
@@ -209,50 +216,48 @@ class PlayerOne extends FlxSprite
 					velocity.x += 1;
 				if (angle < 0 && angle > -89)
 				{
-					velocity.y += 1;
-					velocity.x += 1;
+					velocity.y += 0.5;
+					velocity.x += 0.5;
 				}
 				if (angle < -91 &&  angle > -179)
 				{
-					velocity.x += 1;
-					velocity.y -= 1;
+					velocity.x += 0.5;
+					velocity.y -= 0.5;
 				}
 				if (angle < -181 && angle > -269)
 				{
-					velocity.x -= 1;
-					velocity.y -= 1;
+					velocity.x -= 0.5;
+					velocity.y -= 0.5;
 				}
 				if (angle < -271 && angle > -360)
 				{
-					velocity.x -= 1;
-					velocity.y += 1;
+					velocity.x -= 0.5;
+					velocity.y += 0.5;
 				}
 			}
 		}
 		if (FlxG.keys.pressed.RIGHT)
 		{
 			angularVelocity += 1;
-			updateHitbox();
 		}
 		if (FlxG.keys.pressed.LEFT)
 		{
 			angularVelocity -= 1;
-			updateHitbox();
 		}
 		if (breck())
 		{
 			if (velocity.x > 0)
-				velocity.x  -= 1;
+				velocity.x  -= 2;
 			if (velocity.x < 0)
-				velocity.x +=  1;
+				velocity.x +=  2;
 			if (velocity.y > 0)
-				velocity.y -= 1;
+				velocity.y -= 2;
 			if (velocity.y < 0)
-				velocity.y += 1;
+				velocity.y += 2;
 			if (angularVelocity > 0)
-				angularVelocity -= 1;
+				angularVelocity -= 2;
 			if (angularVelocity < 0)
-				angularVelocity += 1;
+				angularVelocity += 2;
 		}
 	}
 	
@@ -281,7 +286,7 @@ class PlayerOne extends FlxSprite
 			{
 				bullet = new BulletOne(x + width, y + height / 2, distShot, direccion);
 				Reg.bulAliveOne = true;
-				FlxG.state.add(bullet);
+				subst.add(bullet);
 				canShot = false;
 			}
 			distShot = 0;
@@ -291,10 +296,22 @@ class PlayerOne extends FlxSprite
 			if (bullet.getShot() == 0)
 			{
 				Reg.bulAliveOne = false;
-				bullet.destroy();
+				subst.remove(bullet);
 				canShot = true;
 			}
 		}
+	}
+	
+	private function checkBoundaries():Void
+	{
+		if (x < 0 )
+			x = 0;
+		if (x + width > FlxG.width)
+			x = FlxG.width - width -1;
+		if (y <  0)
+			y = 0;
+		if (y + height > FlxG.height)
+			y = FlxG.height - height -1;
 	}
 	
 	public function getBullet():BulletOne
@@ -305,5 +322,15 @@ class PlayerOne extends FlxSprite
 	public function getCanShot():Bool
 	{
 		return canShot;
+	}
+	
+	public function getDamage():Void
+	{
+		life--;
+		if (life <= 0)
+		{
+			lifeBar.destroy();
+			destroy();
+		}
 	}
 }

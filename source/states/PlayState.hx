@@ -15,11 +15,12 @@ class PlayState extends FlxState
 	private var bulletOne: BulletOne;
 	private var bulletTwo: BulletTwo;
 	private var moneda:SpriteMoneda;
+	
 	override public function create():Void
 	{
 		super.create();
-		playerOne = new PlayerOne(100, 100);
-		playerTwo = new PlayerTwo(200, 200);
+		playerOne = new PlayerOne(100, 100, this);
+		playerTwo = new PlayerTwo(200, 200, this);
 		add(playerOne);
 		add(playerTwo);
 		//para testear weas animadas

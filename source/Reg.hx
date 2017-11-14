@@ -9,6 +9,7 @@ class Reg
 	//Player
 	static public var maxSpeed:Int = 50;
 	static public var maxAngSpeed:Int = 30;
+	static public var maxPlayerLife:Int = 20;
 	//Bullet
 	static public var minDistShot:Int = 60;
 	static public var maxDistShot:Int = 360;
