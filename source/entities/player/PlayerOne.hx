@@ -22,6 +22,7 @@ class PlayerOne extends FlxSprite
 	private var direccion:Int;
 	private var subst:FlxSubState;
 	private var life:Int;
+	private var velTotal:Float;
 	
 	public function new(?X:Float = 0, ?Y:Float = 0, _subst:FlxSubState) 
 	{
@@ -38,6 +39,7 @@ class PlayerOne extends FlxSprite
 		subst = _subst;
 		lifeBar = new FlxBar(x, y, FlxBarFillDirection.LEFT_TO_RIGHT, 100, 20, this, "life", 0, Reg.maxPlayerLife, true);
 		subst.add(lifeBar);
+		velTotal = 0;
 	}
 	
 	override public function update(elapsed:Float):Void 
@@ -50,7 +52,7 @@ class PlayerOne extends FlxSprite
 		accelerationControl();
 		breck();
 		checkBoundaries();
-		trace("tu vieja: " + Reg.bulAliveOne + " esta: " + canShot);
+		velTotal = Math.abs(velocity.x) + Math.abs(velocity.y);
 	}
 	
 	private function shot():Void 

@@ -7,6 +7,7 @@ import entities.player.PlayerOne;
 import entities.player.PlayerTwo;
 import flixel.FlxState;
 import flixel.FlxG;
+import Interfaz;
 
 class PlayState extends FlxState
 {
@@ -15,7 +16,7 @@ class PlayState extends FlxState
 	private var bulletOne: BulletOne;
 	private var bulletTwo: BulletTwo;
 	private var moneda:SpriteMoneda;
-	
+	private var interfaz:Interfaz;
 	override public function create():Void
 	{
 		super.create();
@@ -23,6 +24,8 @@ class PlayState extends FlxState
 		playerTwo = new PlayerTwo(200, 200, this);
 		add(playerOne);
 		add(playerTwo);
+		interfaz = new Interfaz(playerOne, this);
+		add(interfaz);
 		//para testear weas animadas
 		//moneda = new SpriteMoneda();
 		//moneda.screenCenter();
