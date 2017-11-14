@@ -27,12 +27,16 @@ class OptionSubState extends FlxSubState
 	public function new(BGColor:FlxColor=0xD0000000) 
 	{
 		super(BGColor);
+		
 		musicVal = FlxG.sound.music.volume * 10;
 		sfxVal = FlxG.sound.volume * 10;
+		
 		musicText = new FlxSprite();
 		sfxText =  new FlxSprite();
+		
 		musicValText = new FlxText(0,0,0,Std.string(musicVal),64);
-		sfxValText = new FlxText(0,0,0,Std.string(sfxVal),64);
+		sfxValText = new FlxText(0, 0, 0, Std.string(sfxVal), 64);
+		
 		musMas = new FlxButton("",masVolMus);
 		musMen = new FlxButton("",menVolMus);
 		sfxMas = new FlxButton("",masVolSfx);
