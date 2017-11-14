@@ -12,27 +12,92 @@ import flixel.ui.FlxBar;
  * @author Amaka
  */
 
-class PlayerOne extends Player 
+class PlayerOne extends FlxSprite 
 {
 	private var distShot:Int;
-	private var bullet:BulletOne;
+	public var bullet:BulletOne;
+	private var distanceBar:FlxBar;
+	private var canShot:Bool;
+	private var direccion:Int;
 	
 	public function new(?X:Float=0, ?Y:Float=0) 
 	{
 		super(X, Y);
 		//Init
+		velocity.x = 0;
+		angularVelocity = 0;
+		canShot = true;
 		loadGraphic(AssetPaths.Player_One__png);
 		scale.set(0.5, 0.5);
+		updateHitbox();
 		distShot = 0;
+		distanceBar = new FlxBar(x, y, FlxBarFillDirection.LEFT_TO_RIGHT, 100, 20, this, "distShot", 0, Reg.maxDistShot, true);
+		FlxG.state.add(distanceBar);
 	}
 	
 	override public function update(elapsed:Float):Void 
 	{
 		super.update(elapsed);
-		updateHitbox();
+		distanceBar.setPosition(x, y);
+		movement();
+		shot();
+		distanceShot();
+		accelerationControl();
+		breck();
 	}
 	
-	override function movement():Void 
+	private function shot():Void 
+	{
+		if (angle >= 0)
+		{
+			if (angle > 0 && angle < 88)
+				direccion = 1;
+			if (angle > 88 && angle < 178)
+				direccion = 2;
+			if (angle > 178 && angle < 268)
+				direccion = 3;
+			if (angle > 268 && angle < 0)
+				direccion = 4;
+		}
+		else
+		{
+			if (angle < 0 && angle > -88)
+				direccion = 4;
+			if (angle < -88 && angle > -178)
+				direccion = 3;
+			if (angle < -178 && angle > -268)
+				direccion = 2;
+			if (angle < -268 && angle > -360)
+				direccion = 1;
+		}
+	}
+	
+	private  function accelerationControl():Void
+	{
+		/*velocidad*/
+		if (velocity.x > 0)
+			if(velocity.x > Reg.maxSpeed)
+				velocity.x = Reg.maxSpeed;
+		if (velocity.x < 0)
+			if( velocity.x < -Reg.maxSpeed)
+				velocity.x = -Reg.maxSpeed;
+		/*velocidad angular*/
+		if (angularVelocity > 0)
+			if (angularVelocity > Reg.maxAngSpeed)
+				angularVelocity = Reg.maxAngSpeed;
+		if (angularVelocity < 0)
+			if (angularVelocity < -Reg.maxAngSpeed)
+				angularVelocity = -Reg.maxAngSpeed;
+		
+		/*angulo*/
+		if (angle > 0 && angle > 360)
+			angle = 0;
+		if (angle < 0 && angle < -360)
+			angle = 0;
+		
+	}
+	
+	private function movement():Void 
 	{
 		if (FlxG.keys.pressed.UP)
 		{
@@ -191,7 +256,7 @@ class PlayerOne extends Player
 		}
 	}
 	
-	override function breck():Bool //retorna verdadero cuando una tecla no esta presionada
+	private function breck():Bool //retorna verdadero cuando una tecla no esta presionada
 	{
 		if (!(FlxG.keys.pressed.UP) && !(FlxG.keys.pressed.DOWN) 
 		&& !(FlxG.keys.pressed.RIGHT) && !(FlxG.keys.pressed.LEFT))
@@ -199,7 +264,7 @@ class PlayerOne extends Player
 		return false;
 	}
 
-	override function distanceShot():Void 
+	private function distanceShot():Void 
 	{
 		if (FlxG.keys.pressed.SHIFT)
 		{
@@ -231,9 +296,14 @@ class PlayerOne extends Player
 			}
 		}
 	}
-
-	public function getBullet(): BulletOne
+	
+	public function getBullet():BulletOne
 	{
 		return bullet;
+	}
+	
+	public function getCanShot():Bool
+	{
+		return canShot;
 	}
 }

@@ -3,7 +3,6 @@ package source.states;
 import entities.animaciones.SpriteMoneda;
 import entities.player.BulletOne;
 import entities.player.BulletTwo;
-import entities.player.Player;
 import entities.player.PlayerOne;
 import entities.player.PlayerTwo;
 import flixel.FlxState;
@@ -11,8 +10,8 @@ import flixel.FlxG;
 
 class PlayState extends FlxState
 {
-	private var playerOne:Player;
-	private var playerTwo:Player;
+	private var playerOne:PlayerOne;
+	private var playerTwo:PlayerTwo;
 	private var bulletOne: BulletOne;
 	private var bulletTwo: BulletTwo;
 	private var moneda:SpriteMoneda;
@@ -32,5 +31,21 @@ class PlayState extends FlxState
 	override public function update(elapsed:Float):Void
 	{
 		super.update(elapsed);
+		if(!playerOne.getCanShot())
+			FlxG.overlap(playerOne.getBullet(), playerTwo, colPTwoBullet);
+		if(!playerTwo.getCanShot())
+			FlxG.overlap(playerTwo.getBullet(), playerOne, colPOneBullet);
+	}
+	
+	public function colPOneBullet(B:BulletTwo, p:PlayerOne):Void
+	{
+		p.destroy();
+		B.destroy();
+	}
+	
+	public function colPTwoBullet(B:BulletOne, p:PlayerTwo):Void
+	{
+		p.destroy();
+		B.destroy();
 	}
 }

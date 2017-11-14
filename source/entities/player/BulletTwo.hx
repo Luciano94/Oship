@@ -17,7 +17,9 @@ class BulletTwo extends FlxSprite
 	public function new(?X:Float=0, ?Y:Float=0, _distShot:Int, _direccion: Int) 
 	{
 		super(X, Y);
-		makeGraphic(4, 4, FlxColor.CYAN);
+		loadGraphic(AssetPaths.Bullet__png);
+		scale.set(0.2, 0.2);
+		updateHitbox();
 		distShot = _distShot;
 		direccion = _direccion;
 	}
