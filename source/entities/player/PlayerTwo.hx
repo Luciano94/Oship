@@ -30,7 +30,6 @@ class PlayerTwo extends Player
 	{
 		super.update(elapsed);
 		updateHitbox();
-		pixelPerfectPosition
 	}
 	
 	override function movement():Void 

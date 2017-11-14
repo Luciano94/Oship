@@ -5,6 +5,7 @@ import flixel.system.FlxAssets.FlxGraphicAsset;
 import flixel.util.FlxColor;
 import flixel.FlxSprite;
 import flixel.FlxG;
+import flixel.ui.FlxBar;
 
 /**
  * ...
