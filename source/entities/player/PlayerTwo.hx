@@ -29,6 +29,8 @@ class PlayerTwo extends Player
 	override public function update(elapsed:Float):Void 
 	{
 		super.update(elapsed);
+		updateHitbox();
+		pixelPerfectPosition
 	}
 	
 	override function movement():Void 
@@ -213,7 +215,7 @@ class PlayerTwo extends Player
 				distShot = Reg.minDistShot;
 			if (canShot)
 			{
-				bullet = new BulletTwo(x, y, distShot, direccion);
+				bullet = new BulletTwo(x + width, y + height / 2, distShot, direccion);
 				Reg.bulAliveTwo = true;
 				FlxG.state.add(bullet);
 				canShot = false;

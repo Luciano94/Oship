@@ -22,16 +22,13 @@ class PlayerOne extends Player
 		//Init
 		loadGraphic(AssetPaths.Player_One__png);
 		scale.set(0.5, 0.5);
-		updateHitbox();
 		distShot = 0;
 	}
 	
 	override public function update(elapsed:Float):Void 
 	{
 		super.update(elapsed);
-		trace("direccion: " + direccion);
-		trace("distance: " + distShot);
-		trace("shot: " + canShot);
+		updateHitbox();
 	}
 	
 	override function movement():Void 
@@ -216,7 +213,7 @@ class PlayerOne extends Player
 				distShot = Reg.minDistShot;
 			if (canShot)
 			{
-				bullet = new BulletOne(x, y, distShot, direccion);
+				bullet = new BulletOne(x + width, y + height / 2, distShot, direccion);
 				Reg.bulAliveOne = true;
 				FlxG.state.add(bullet);
 				canShot = false;

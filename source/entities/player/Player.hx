@@ -31,7 +31,6 @@ class Player extends FlxSprite
 		distanceShot();
 		accelerationControl();
 		breck();
-		trace("angle: " + angle);
 	}
 	
 	private function breck():Bool
