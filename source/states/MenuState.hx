@@ -33,7 +33,7 @@ class MenuState extends FlxState
 		fondo.updateHitbox();
 		add(fondo);
 		
-		FlxG.sound.load();
+		//FlxG.sound.load();
 		FlxG.sound.playMusic(AssetPaths.menuScreen__ogg,1,true);
 		
 		logo = new FlxSprite();

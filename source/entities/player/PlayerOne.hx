@@ -19,6 +19,7 @@ class PlayerOne extends FlxSprite
 	private var distanceBar:FlxBar;
 	private var canShot:Bool;
 	private var direccion:Int;
+	private var velTotal:Float;
 	
 	public function new(?X:Float=0, ?Y:Float=0) 
 	{
@@ -33,6 +34,7 @@ class PlayerOne extends FlxSprite
 		distShot = 0;
 		distanceBar = new FlxBar(x, y, FlxBarFillDirection.LEFT_TO_RIGHT, 100, 20, this, "distShot", 0, Reg.maxDistShot, true);
 		FlxG.state.add(distanceBar);
+		velTotal = 0;
 	}
 	
 	override public function update(elapsed:Float):Void 
@@ -44,6 +46,7 @@ class PlayerOne extends FlxSprite
 		distanceShot();
 		accelerationControl();
 		breck();
+		velTotal = Math.abs(velocity.x) + Math.abs(velocity.y);
 	}
 	
 	private function shot():Void 
