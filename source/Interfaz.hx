@@ -23,7 +23,7 @@ class Interfaz extends FlxSprite
 	public function new(?X:Float=0, ?Y:Float=0, ?SimpleGraphic:FlxGraphicAsset, barco:PlayerOne, estado:FlxState) 
 	{
 		super(X, Y, SimpleGraphic);
-		
+		this.visible = false;
 		player = barco;
 		
 		timon = new FlxSprite();
@@ -39,10 +39,10 @@ class Interfaz extends FlxSprite
 		estado.add(barraVel);
 		
 		boton = new FlxSprite();
-		boton.makeGraphic(50, 50, 0xFFFFFFFF);
+		boton.makeGraphic(100, 100, 0xFFFFFFFF);
 		boton.updateHitbox();
-		boton.x = barraVel.x - 80;
-		boton.y = FlxG.camera.height - 80;
+		boton.x = barraVel.x - 130;
+		boton.y = FlxG.camera.height - 130;
 		estado.add(boton);
 		
 		barraShot = new FlxBar(0,0,FlxBarFillDirection.BOTTOM_TO_TOP,50,300,player,"distShot",0,Reg.maxDistShot,true);
@@ -55,10 +55,10 @@ class Interfaz extends FlxSprite
 	{
 		if (FlxG.keys.pressed.SHIFT) 
 		{
-			boton.makeGraphic(50,50,0xFF00FF00);
+			boton.makeGraphic(100,100,0xFF00FF00);
 		} else if (FlxG.keys.justReleased.SHIFT) 
 		{
-			boton.makeGraphic(50, 50, 0xFFFFFFFF);
+			boton.makeGraphic(100, 100, 0xFFFFFFFF);
 		}
 		
 		timon.angle = player.angle;

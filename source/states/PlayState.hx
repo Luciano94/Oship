@@ -22,9 +22,9 @@ class PlayState extends FlxState
 		super.create();
 		playerOne = new PlayerOne(100, 100);
 		playerTwo = new PlayerTwo(200, 200);
-		interfaz = new Interfaz(playerOne, this);
 		add(playerOne);
 		add(playerTwo);
+		interfaz = new Interfaz(playerOne, this);
 		add(interfaz);
 		//para testear weas animadas
 		//moneda = new SpriteMoneda();
