@@ -39,7 +39,7 @@ class Interfaz extends FlxSprite
 		estado.add(barraVel);
 		
 		boton = new FlxSprite();
-		boton.makeGraphic(100, 100, 0xFFFFFFFF);
+		boton.loadGraphic(AssetPaths.botonLibre__png);
 		boton.updateHitbox();
 		boton.x = barraVel.x - 130;
 		boton.y = FlxG.camera.height - 130;
@@ -55,10 +55,10 @@ class Interfaz extends FlxSprite
 	{
 		if (FlxG.keys.pressed.SHIFT) 
 		{
-			boton.makeGraphic(100,100,0xFF00FF00);
+			boton.loadGraphic(AssetPaths.botonApretado__png);
 		} else if (FlxG.keys.justReleased.SHIFT) 
 		{
-			boton.makeGraphic(100, 100, 0xFFFFFFFF);
+			boton.loadGraphic(AssetPaths.botonLibre__png);
 		}
 		
 		timon.angle = player.angle;
