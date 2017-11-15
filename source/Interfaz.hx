@@ -53,7 +53,7 @@ class Interfaz extends FlxSprite
 	}
 	override public function update(elapsed:Float):Void
 	{
-		if (FlxG.keys.pressed.SHIFT) 
+		if (FlxG.keys.pressed.NUMPADONE) 
 		{
 			boton.loadGraphic(AssetPaths.botonApretado__png);
 		} else if (FlxG.keys.justReleased.SHIFT) 

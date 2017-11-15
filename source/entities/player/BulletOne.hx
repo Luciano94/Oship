@@ -13,6 +13,7 @@ class BulletOne extends FlxSprite
 {
 	private var distShot: Int;
 	private var direccion: Int;
+	private var impact:Bool;
 
 	public function new(?X:Float=0, ?Y:Float=0, _distShot:Int, _direccion: Int) 
 	{
@@ -22,6 +23,7 @@ class BulletOne extends FlxSprite
 		updateHitbox();
 		distShot = _distShot;
 		direccion = _direccion;
+		impact = false;
 	}
 	
 	override public function update(elapsed:Float):Void 
@@ -47,6 +49,13 @@ class BulletOne extends FlxSprite
 	{
 		if (distShot > 0)
 			distShot --;
+		if (distShot < 5)
+			impact = true;
+	}
+	
+	public function getImpact():Bool
+	{
+		return impact;
 	}
 	
 	public function getShot():Int
