@@ -24,6 +24,7 @@ class BattleState extends FlxSubState
 	private var moneda:SpriteMoneda;
 	private var oceano:Array<Array<FlxSprite>>;
 	private var interfaz:Interfaz;
+	
 	public function new(BGColor:FlxColor=FlxColor.BLUE) 
 	{
 		super(BGColor);
@@ -63,21 +64,25 @@ class BattleState extends FlxSubState
 	override public function update(elapsed:Float):Void
 	{
 		super.update(elapsed);
-		if(!playerOne.getCanShot())
-			FlxG.overlap(playerOne.getBullet(), playerTwo, colPTwoBullet);
-		if(!playerTwo.getCanShot())
-			FlxG.overlap(playerTwo.getBullet(), playerOne, colPOneBullet);
+		if (!playerOne.getCanShot())
+			if(playerOne.getBullet().getImpact())
+				FlxG.overlap(playerOne.getBullet(), playerTwo, colPTwoBullet);
+		if (!playerTwo.getCanShot())
+			if(playerTwo.getBullet().getImpact())
+				FlxG.overlap(playerTwo.getBullet(), playerOne, colPOneBullet);
 	}
 	
 	public function colPOneBullet(B:BulletTwo, p:PlayerOne):Void
 	{
 		p.getDamage();
+		playerTwo.setCanShot(true);
 		B.kill();
 	}
 	
 	public function colPTwoBullet(B:BulletOne, p:PlayerTwo):Void
 	{
 		p.getDamage();
+		playerOne.setCanShot(true);
 		B.kill();
 	}
 	

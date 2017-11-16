@@ -323,6 +323,11 @@ class PlayerTwo extends FlxSprite
 		return canShot;
 	}
 	
+	public function setCanShot(s:Bool):Void
+	{
+		canShot = s;
+	}
+	
 	public function getDamage():Void
 	{
 		life--;

@@ -273,14 +273,14 @@ class PlayerOne extends FlxSprite
 
 	private function distanceShot():Void 
 	{
-		if (FlxG.keys.pressed.SHIFT)
+		if (FlxG.keys.pressed.NUMPADONE)
 		{
 			if (distShot > Reg.maxDistShot)
 				distShot = Reg.maxDistShot;
 			else
 				distShot++;
 		}	
-		if (FlxG.keys.justReleased.SHIFT)
+		if (FlxG.keys.justReleased.NUMPADONE)
 		{ 
 			if (distShot < Reg.minDistShot)
 				distShot = Reg.minDistShot;
@@ -324,6 +324,11 @@ class PlayerOne extends FlxSprite
 	public function getCanShot():Bool
 	{
 		return canShot;
+	}
+	
+	public function setCanShot(s:Bool):Void
+	{
+		canShot = s;
 	}
 	
 	public function getDamage():Void
