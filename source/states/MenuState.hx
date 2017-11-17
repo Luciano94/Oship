@@ -10,6 +10,7 @@ import AssetPaths;
 import flixel.util.FlxSpriteUtil;
 import states.AdSubState;
 import states.BattleState;
+import states.MapState;
 import states.OptionSubState;
 import openfl.system.System;
 
@@ -34,7 +35,6 @@ class MenuState extends FlxState
 		fondo.updateHitbox();
 		add(fondo);
 		
-		//FlxG.sound.load();
 		FlxG.sound.playMusic(AssetPaths.menuScreen__ogg,1,true);
 		
 		logo = new FlxSprite();
@@ -94,6 +94,6 @@ class MenuState extends FlxState
 	}
 	private function clickComo():Void
 	{
-		openSubState(new AdSubState());
+		FlxG.switchState(new MapState());
 	}
 }

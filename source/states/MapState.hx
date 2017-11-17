@@ -14,12 +14,17 @@ class MapState extends FlxState
 {
 	private var fondo:FlxSprite;
 	private var exitButton:FlxButton;
+	public var sePuede:Bool;
 	public function new() 
 	{
 		super();
+		sePuede = true;
+		
 		fondo = new FlxSprite();
 		fondo.loadGraphic(AssetPaths.islas__png);
 		add(fondo);
+		
+		//FlxG.sound.playMusic();
 		
 		exitButton = new FlxButton("", salir);
 		exitButton.loadGraphic(AssetPaths.salir__png);
@@ -31,21 +36,31 @@ class MapState extends FlxState
 	
 	override public function update(elapsed:Float):Void
 	{
-		super(elapsed);
-		if (!FlxG.overlap(FlxG.mouse,exitButton) && FlxG.mouse.justPressed) 
+		super.update(elapsed);
+		if (!FlxG.mouse.overlaps(exitButton) && FlxG.mouse.justPressed) 
 		{
-			
+			cartelito();
 		}
 	}			
 	
 	private function salir():Void
 	{
-		switchTo(switchTo(new MenuState()));
+		FlxG.switchState(new MenuState());
 	}
 	
-	private function elegirIsla():Void
+	private function cartelito():Void
 	{
+		if (sePuede) 
+		{
+			sePuede = false;
+			var equis:Float;
+			var i:Float;
+			equis = FlxG.mouse.x;
+			i = FlxG.mouse.y;
+			var cartelito:Cartelito;
+			cartelito = new Cartelito(equis, i,null, this);
+			add(cartelito);
+		}
 		
-	}
-	
+	}	
 }
