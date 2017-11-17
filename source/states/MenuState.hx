@@ -81,8 +81,7 @@ class MenuState extends FlxState
 	
 	private function clickPlay():Void
 	{
-		FlxG.sound.music.stop();
-		openSubState(new BattleState());
+		FlxG.switchState(new MapState());
 	}
 	private function clickOption():Void
 	{
@@ -94,6 +93,6 @@ class MenuState extends FlxState
 	}
 	private function clickComo():Void
 	{
-		FlxG.switchState(new MapState());
+		openSubState(new BattleState());
 	}
 }

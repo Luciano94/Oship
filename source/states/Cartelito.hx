@@ -38,7 +38,7 @@ class Cartelito extends FlxSprite
 	
 	private function cerrar():Void
 	{
-		estado.sePuede = true;
+		estado.ahoraSePuede();
 		estado.remove(texto);
 		estado.remove(exitButton);
 		estado.remove(irButton);
@@ -48,6 +48,7 @@ class Cartelito extends FlxSprite
 	
 	private function ir():Void
 	{
+		estado.ir();
 		cerrar();
 	}
 }

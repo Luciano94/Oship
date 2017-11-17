@@ -26,6 +26,7 @@ class AdSubState extends FlxSubState
 	public function new(BGColor:FlxColor=0xFF000000) 
 	{
 		super(BGColor);
+		FlxG.sound.music.pause();
 		ad = new FlxText(0, 0, 0, "Compra fernet o mato a un conejito", 80);
 		ad.screenCenter();
 		ad2 = new FlxText(0, 0, 0, ">:^{D", 80);
@@ -63,9 +64,15 @@ class AdSubState extends FlxSubState
 			salir();
 		}
 		contadorText.text = Std.string(contador);
+		
+		if (FlxG.keys.justPressed.ESCAPE) 
+		{
+			salir();
+		}
 	}
 	private function salir():Void
 	{
+		FlxG.sound.music.resume();
 		this.close();
 	}
 	

@@ -2,7 +2,9 @@ package states;
 
 import flixel.FlxSprite;
 import flixel.FlxState;
+import flixel.text.FlxText;
 import flixel.ui.FlxButton;
+import flixel.util.FlxTimer;
 import source.states.MenuState;
 import flixel.FlxG;
 
@@ -14,12 +16,29 @@ class MapState extends FlxState
 {
 	private var fondo:FlxSprite;
 	private var exitButton:FlxButton;
-	public var sePuede:Bool;
+	private var sePuede:Bool;
+	private var clickX:Float;
+	private var clickY:Float;
+	private var barquito:FlxSprite;
+	private var tiempoText:FlxText;
+	private var horas:Int;
+	private var minutos:Int;
+	private var segundos:Int;
+	private var contador:Float;
+	private var contar:Bool;
 	public function new() 
 	{
 		super();
 		sePuede = true;
-		
+		clickX = 0;
+		clickY = 0;
+		contar = false;
+		contador = 0;
+		horas = 1;
+		minutos = 0;
+		segundos = 20;
+		tiempoText = new FlxText(0, 0, 0, "", 20);
+		tiempoText.visible = false;
 		fondo = new FlxSprite();
 		fondo.loadGraphic(AssetPaths.islas__png);
 		add(fondo);
@@ -32,6 +51,16 @@ class MapState extends FlxState
 		exitButton.x = camera.width - exitButton.width - 50;
 		exitButton.y = camera.height - exitButton.height - 50;
 		add(exitButton);
+		
+		barquito = new FlxSprite(568, 873);
+		barquito.loadGraphic(AssetPaths.Player_One__png);
+		barquito.scale.set(0.1, 0.1);
+		barquito.updateHitbox();
+		barquito.x += barquito.width;
+		barquito.y -= barquito.height;
+		add(barquito);
+		
+		add(tiempoText);
 	}
 	
 	override public function update(elapsed:Float):Void
@@ -41,8 +70,46 @@ class MapState extends FlxState
 		{
 			cartelito();
 		}
+		if (contar) 
+		{
+			contador += elapsed;
+			if (contador >= 1) 
+			{
+				contador = 0;
+				segundos--;
+				if (segundos<0) 
+				{
+					segundos = 59;
+					minutos--;
+					if (minutos< 0) 
+					{
+						horas--;
+						minutos = 59;
+						if (horas<0) 
+						{
+							horas = 0;
+						}
+					}
+				}
+			}
+			tiempoText.visible = true;
+			tiempoText.text = Std.string(horas) + ":" + Std.string(minutos) + ":" + Std.string(segundos);
+			tiempoText.x = barquito.x;
+			tiempoText.y = (barquito.y - tiempoText.height) - 5;
+		}
+		if (horas <= 0 && minutos <= 0 && segundos <=0) 
+		{
+			contar = false;
+			tiempoText.visible = false;
+			llegar();
+		}
+		
 	}			
-	
+	private function llegar():Void
+	{
+		FlxG.sound.music.stop();
+		openSubState(new BattleState());
+	}
 	private function salir():Void
 	{
 		FlxG.switchState(new MenuState());
@@ -53,14 +120,21 @@ class MapState extends FlxState
 		if (sePuede) 
 		{
 			sePuede = false;
-			var equis:Float;
-			var i:Float;
-			equis = FlxG.mouse.x;
-			i = FlxG.mouse.y;
+			clickX = FlxG.mouse.x;
+			clickY = FlxG.mouse.y;
 			var cartelito:Cartelito;
-			cartelito = new Cartelito(equis, i,null, this);
+			cartelito = new Cartelito(clickX, clickY,null, this);
 			add(cartelito);
 		}
 		
-	}	
+	}
+	public function ahoraSePuede():Void
+	{
+		sePuede = true;
+	}
+	
+	public function ir():Void
+	{
+		contar = true;
+	}
 }
