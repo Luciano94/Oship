@@ -33,10 +33,6 @@ class MapState extends FlxState
 		clickX = 0;
 		clickY = 0;
 		contar = false;
-		contador = 0;
-		horas = 1;
-		minutos = 0;
-		segundos = 20;
 		tiempoText = new FlxText(0, 0, 0, "", 20);
 		tiempoText.visible = false;
 		fondo = new FlxSprite();
@@ -70,33 +66,7 @@ class MapState extends FlxState
 		{
 			cartelito();
 		}
-		if (contar) 
-		{
-			contador += elapsed;
-			if (contador >= 1) 
-			{
-				contador = 0;
-				segundos--;
-				if (segundos<0) 
-				{
-					segundos = 59;
-					minutos--;
-					if (minutos< 0) 
-					{
-						horas--;
-						minutos = 59;
-						if (horas<0) 
-						{
-							horas = 0;
-						}
-					}
-				}
-			}
-			tiempoText.visible = true;
-			tiempoText.text = Std.string(horas) + ":" + Std.string(minutos) + ":" + Std.string(segundos);
-			tiempoText.x = barquito.x;
-			tiempoText.y = (barquito.y - tiempoText.height) - 5;
-		}
+		contando(elapsed);
 		if (horas <= 0 && minutos <= 0 && segundos <=0) 
 		{
 			contar = false;
@@ -136,5 +106,46 @@ class MapState extends FlxState
 	public function ir():Void
 	{
 		contar = true;
+		var a:Float;
+		var b:Float;
+		var angulo:Float;
+		a = clickX - barquito.x;
+		b = clickY - barquito.y;
+		angulo = (Math.atan2(b, a) * 57.2958) + 90;
+		barquito.angle = angulo;
+	}
+	private function contando(elapsed:Float):Void
+	{
+		if (contar) 
+		{
+			contador = 0;
+			horas = 1;
+			minutos = 0;
+			segundos = 20;
+			contador += elapsed;
+			if (contador >= 1) 
+			{
+				contador = 0;
+				segundos--;
+				if (segundos<0) 
+				{
+					segundos = 59;
+					minutos--;
+					if (minutos< 0) 
+					{
+						horas--;
+						minutos = 59;
+						if (horas<0) 
+						{
+							horas = 0;
+						}
+					}
+				}
+			}
+			tiempoText.visible = true;
+			tiempoText.text = Std.string(horas) + ":" + Std.string(minutos) + ":" + Std.string(segundos);
+			tiempoText.x = barquito.x;
+			tiempoText.y = (barquito.y - tiempoText.height) - 5;
+		}
 	}
 }

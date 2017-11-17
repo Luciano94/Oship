@@ -5,6 +5,7 @@ import flixel.FlxState;
 import flixel.system.FlxAssets.FlxGraphicAsset;
 import flixel.text.FlxText;
 import flixel.ui.FlxButton;
+import flixel.FlxG;
 
 /**
  * ...
@@ -20,7 +21,25 @@ class Cartelito extends FlxSprite
 	{
 		super(X, Y, SimpleGraphic);
 		this.visible = false;
+		this.setSize(500,300);
 		estado = _estado;
+		
+		if (this.y + this.height> FlxG.camera.height) 
+		{
+			this.y -= (FlxG.camera.height - this.height);
+		}
+		if (this.x + this.width > FlxG.camera.width) 
+		{
+			this.x -= (FlxG.camera.width - this.width);
+		}
+		if (this.x < 0) 
+		{
+			this.x = 0;
+		}
+		if (this.y < 0) 
+		{
+			this.y = 0;
+		}
 		
 		texto = new FlxText(this.x, this.y, 500, "Tardaras 1 hora(s) en llegar", 50);
 		estado.add(texto);
@@ -34,6 +53,8 @@ class Cartelito extends FlxSprite
 		irButton.loadGraphic(AssetPaths.ir__png);
 		//irButton.x += irButton.width / 2;
 		estado.add(irButton);
+		
+		
 	}
 	
 	private function cerrar():Void
