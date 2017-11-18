@@ -26,12 +26,20 @@ class MapState extends FlxState
 	private var segundos:Int;
 	private var contador:Float;
 	private var contar:Bool;
+	private var distX:Float;
+	private var distY:Float;
+	private var cruz:FlxSprite;
 	public function new() 
 	{
 		super();
 		sePuede = true;
 		clickX = 0;
 		clickY = 0;
+		contador = 0;
+		horas = 1;
+		minutos = 0;
+		segundos = 20;
+		
 		contar = false;
 		tiempoText = new FlxText(0, 0, 0, "", 20);
 		tiempoText.visible = false;
@@ -55,6 +63,11 @@ class MapState extends FlxState
 		barquito.x += barquito.width;
 		barquito.y -= barquito.height;
 		add(barquito);
+		
+		cruz = new FlxSprite();
+		cruz.loadGraphic(AssetPaths.cruz__png);
+		cruz.visible = false;
+		add(cruz);
 		
 		add(tiempoText);
 	}
@@ -105,28 +118,28 @@ class MapState extends FlxState
 	
 	public function ir():Void
 	{
+		cruz.x = clickX - (cruz.width / 2);
+		cruz.y = clickY - (cruz.height / 2);
+		cruz.visible = true;
+		
 		contar = true;
-		var a:Float;
-		var b:Float;
 		var angulo:Float;
-		a = clickX - barquito.x;
-		b = clickY - barquito.y;
-		angulo = (Math.atan2(b, a) * 57.2958) + 90;
+		distX = clickX - barquito.x;
+		distY = clickY - barquito.y;
+		angulo = (Math.atan2(distY, distX) * 57.2958) + 90;
 		barquito.angle = angulo;
 	}
 	private function contando(elapsed:Float):Void
 	{
 		if (contar) 
 		{
-			contador = 0;
-			horas = 1;
-			minutos = 0;
-			segundos = 20;
+			
 			contador += elapsed;
 			if (contador >= 1) 
 			{
 				contador = 0;
 				segundos--;
+				acercar();
 				if (segundos<0) 
 				{
 					segundos = 59;
@@ -147,5 +160,11 @@ class MapState extends FlxState
 			tiempoText.x = barquito.x;
 			tiempoText.y = (barquito.y - tiempoText.height) - 5;
 		}
+	}
+	
+	private function acercar():Void
+	{
+		barquito.x += distX / 3600;
+		barquito.y += distY / 3600;
 	}
 }
