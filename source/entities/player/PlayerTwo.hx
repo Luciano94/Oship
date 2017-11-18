@@ -77,14 +77,22 @@ class PlayerTwo extends FlxSprite
 	
 	private function checkBoundaries():Void
 	{
-		if (x - width < 0)
-			x = 1;
-		if (x + width > FlxG.width)
+		if (x < 0 ){
+			x = 0;
+			velocity.set(0, 0);
+		}
+		if (x + width > FlxG.width){
 			x = FlxG.width - width -1;
-		if (y - height <  0)
-			y = 1;
-		if (y + height > FlxG.height)
+			velocity.set(0, 0);
+		}
+		if (y <  0){
+			y = 0;
+			velocity.set(0, 0);
+		}
+		if (y + height > FlxG.height){
+			velocity.set(0, 0);
 			y = FlxG.height - height -1;
+		}
 	}
 	
 	private function movement():Void 
@@ -267,7 +275,7 @@ class PlayerTwo extends FlxSprite
 				distShot = Reg.minDistShot;
 			if (canShot)
 			{
-				bullet = new BulletTwo(x + width, y + height / 2, distShot);
+				bullet = new BulletTwo(x + (width / 2), y + (height / 2), distShot);
 				Reg.bulAliveTwo = true;
 				subst.add(bullet);
 				canShot = false;
