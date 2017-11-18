@@ -31,6 +31,7 @@ class PlayerOne extends FlxSprite
 		velocity.x = 0;
 		angularVelocity = 0;
 		canShot = true;
+		width = width / 2;
 		life = Reg.maxPlayerLife;
 		loadGraphic(AssetPaths.Player_One__png);
 		scale.set(0.5, 0.5);
@@ -40,6 +41,7 @@ class PlayerOne extends FlxSprite
 		lifeBar = new FlxBar(x, y, FlxBarFillDirection.LEFT_TO_RIGHT, 100, 20, this, "life", 0, Reg.maxPlayerLife, true);
 		subst.add(lifeBar);
 		velTotal = 0;
+		updateHitbox();
 	}
 	
 	override public function update(elapsed:Float):Void 
@@ -168,9 +170,9 @@ class PlayerOne extends FlxSprite
 				}
 				if (angle < -271 && angle > -360)
 				{
-				velocity.x += 0.5;
-				velocity.y -= 0.5;
-			}
+					velocity.x += 0.5;
+					velocity.y -= 0.5;
+				}
 			}
 		}
 		if (FlxG.keys.pressed.DOWN)
@@ -286,7 +288,7 @@ class PlayerOne extends FlxSprite
 				distShot = Reg.minDistShot;
 			if (canShot)
 			{
-				bullet = new BulletOne(x + width, y + height / 2, distShot, direccion);
+				bullet = new BulletOne(x + width, y + height / 2, distShot);
 				Reg.bulAliveOne = true;
 				subst.add(bullet);
 				canShot = false;
@@ -306,14 +308,22 @@ class PlayerOne extends FlxSprite
 	
 	private function checkBoundaries():Void
 	{
-		if (x < 0 )
+		if (x < 0 ){
 			x = 0;
-		if (x + width > FlxG.width)
+			velocity.set(0, 0);
+		}
+		if (x + width > FlxG.width){
 			x = FlxG.width - width -1;
-		if (y <  0)
+			velocity.set(0, 0);
+		}
+		if (y <  0){
 			y = 0;
-		if (y + height > FlxG.height)
+			velocity.set(0, 0);
+		}
+		if (y + height > FlxG.height){
+			velocity.set(0, 0);
 			y = FlxG.height - height -1;
+		}
 	}
 	
 	public function getBullet():BulletOne

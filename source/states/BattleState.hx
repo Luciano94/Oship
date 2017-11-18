@@ -57,6 +57,8 @@ class BattleState extends FlxSubState
 		playerTwo = new PlayerTwo(700, 700, this);
 		add(playerOne);
 		add(playerTwo);
+		Reg.playerOne = playerOne;
+		Reg.playerTwo = playerTwo;
 		interfaz = new Interfaz(playerOne, this);
 		add(interfaz);
 	}

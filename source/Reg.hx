@@ -1,4 +1,6 @@
 package;
+import entities.player.PlayerOne;
+import entities.player.PlayerTwo;
 
 /**
  * ...
@@ -6,6 +8,9 @@ package;
  */
 class Reg 
 {
+	//Refer
+	static public var playerOne:PlayerOne;
+	static public var playerTwo:PlayerTwo;
 	//Player
 	static public var maxSpeed:Int = 50;
 	static public var maxAngSpeed:Int = 30;

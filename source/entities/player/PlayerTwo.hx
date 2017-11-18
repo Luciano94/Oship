@@ -19,7 +19,6 @@ class PlayerTwo extends FlxSprite
 	private var bullet: BulletTwo;
 	private var canShot:Bool;
 	private var lifeBar:FlxBar;
-	private var direccion:Int;
 	private var subst:FlxSubState;
 	private var life:Int;
 
@@ -45,37 +44,10 @@ class PlayerTwo extends FlxSprite
 		super.update(elapsed);
 		lifeBar.setPosition(x, y);
 		movement();
-		shot();
 		distanceShot();
 		accelerationControl();
 		breck();
 		checkBoundaries();
-	}
-	
-	private function shot():Void 
-	{
-		if (angle >= 0)
-		{
-			if (angle > 0 && angle < 88)
-				direccion = 1;
-			if (angle > 88 && angle < 178)
-				direccion = 2;
-			if (angle > 178 && angle < 268)
-				direccion = 3;
-			if (angle > 268 && angle < 0)
-				direccion = 4;
-		}
-		else
-		{
-			if (angle < 0 && angle > -88)
-				direccion = 4;
-			if (angle < -88 && angle > -178)
-				direccion = 3;
-			if (angle < -178 && angle > -268)
-				direccion = 2;
-			if (angle < -268 && angle > -360)
-				direccion = 1;
-		}
 	}
 	
 	private  function accelerationControl():Void
@@ -295,7 +267,7 @@ class PlayerTwo extends FlxSprite
 				distShot = Reg.minDistShot;
 			if (canShot)
 			{
-				bullet = new BulletTwo(x + width, y + height / 2, distShot, direccion);
+				bullet = new BulletTwo(x + width, y + height / 2, distShot);
 				Reg.bulAliveTwo = true;
 				subst.add(bullet);
 				canShot = false;
