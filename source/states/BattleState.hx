@@ -9,6 +9,7 @@ import entities.player.BulletTwo;
 import entities.player.PlayerOne;
 import entities.player.PlayerTwo;
 import flixel.FlxG;
+import flixel.text.FlxText;
 
 /**
  * ...
@@ -24,6 +25,7 @@ class BattleState extends FlxSubState
 	private var moneda:SpriteMoneda;
 	private var oceano:Array<Array<FlxSprite>>;
 	private var interfaz:Interfaz;
+	private var levelCleared:FlxText;
 	
 	public function new(BGColor:FlxColor=FlxColor.BLUE) 
 	{
@@ -66,6 +68,22 @@ class BattleState extends FlxSubState
 	override public function update(elapsed:Float):Void
 	{
 		super.update(elapsed);
+		collision();
+		trace (Reg.pOneWin);
+		if (Reg.pOneWin)
+		{
+			levelClearedSetUp();
+			Reg.pOneWin = false;
+		}
+		if (Reg.pTwoWin)
+		{
+			levelLostSetUp();
+			Reg.pTwoWin = false;
+		}
+	}
+	
+	private function collision():Void
+	{
 		if (!playerOne.getCanShot())
 			if(playerOne.getBullet().getImpact())
 				if (FlxG.pixelPerfectOverlap(playerOne.getBullet(),playerTwo))
@@ -82,5 +100,28 @@ class BattleState extends FlxSubState
 					playerTwo.setCanShot(true);
 					playerTwo.getBullet().kill();
 				}
+	}
+	
+	private function levelClearedSetUp():Void 
+	{
+		levelCleared = new FlxText(0, FlxG.height / 2 - 32, FlxG.width, "You Win!!! \nHas perdido: " + (Reg.maxPlayerLife - playerOne.getLife()) + 
+		" puntos de vida \nHas ganado 50 esclavos\nTu hermana esta mas buena", 64, true);
+		levelCleared.screenCenter();
+		levelCleared.color = FlxColor.BLACK;
+		levelCleared.setBorderStyle(FlxTextBorderStyle.SHADOW, FlxColor.WHITE, 1, 1);
+		levelCleared.alignment = FlxTextAlign.CENTER;
+		levelCleared.scrollFactor.set(0, 0);
+		add(levelCleared);
+	}
+	
+	private function levelLostSetUp():Void 
+	{
+		levelCleared = new FlxText(0, FlxG.height / 2 - 32, FlxG.width, "Has Perdido!!!\n Perdiste todos tus recursos, naufragaste y un barco mercante te ha rescatado\nDebes recuperar tu barco y tu honor!!!", 64, true);
+		levelCleared.screenCenter();
+		levelCleared.color = FlxColor.BLACK;
+		levelCleared.setBorderStyle(FlxTextBorderStyle.SHADOW, FlxColor.WHITE, 1, 1);
+		levelCleared.alignment = FlxTextAlign.CENTER;
+		levelCleared.scrollFactor.set(0, 0);
+		add(levelCleared);
 	}
 }

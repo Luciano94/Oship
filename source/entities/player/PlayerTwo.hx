@@ -315,8 +315,14 @@ class PlayerTwo extends FlxSprite
 		life--;
 		if (life <= 0)
 		{
+			Reg.pOneWin = true;
 			lifeBar.destroy();
 			destroy();
 		}
+	}
+	
+	public function getLife():Int
+	{
+		return life;
 	}
 }
