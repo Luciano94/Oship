@@ -56,7 +56,7 @@ class Interfaz extends FlxSprite
 		if (FlxG.keys.pressed.NUMPADONE) 
 		{
 			boton.loadGraphic(AssetPaths.botonApretado__png);
-		} else if (FlxG.keys.justReleased.SHIFT) 
+		} else if (FlxG.keys.justReleased.NUMPADONE) 
 		{
 			boton.loadGraphic(AssetPaths.botonLibre__png);
 		}

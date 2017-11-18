@@ -29,6 +29,10 @@ class MapState extends FlxState
 	private var distX:Float;
 	private var distY:Float;
 	private var cruz:FlxSprite;
+	private var siBtn:FlxButton;
+	private var noBtn:FlxButton;
+	private var adTxt:FlxText;
+	private var adBool:Bool;
 	public function new() 
 	{
 		super();
@@ -39,6 +43,7 @@ class MapState extends FlxState
 		horas = 1;
 		minutos = 0;
 		segundos = 20;
+		adBool = true;
 		
 		contar = false;
 		tiempoText = new FlxText(0, 0, 0, "", 20);
@@ -80,6 +85,21 @@ class MapState extends FlxState
 			cartelito();
 		}
 		contando(elapsed);
+		if (horas <= 0 && minutos <= 30 && adBool) 
+		{
+			adBool = false;
+			adTxt = new FlxText(0, 0, 700, "¿Ver una publicidad para llegar ahora?", 50);
+			add(adTxt);
+			
+			siBtn = new FlxButton(adTxt.x, adTxt.y + adTxt.height, "", verAd);
+			siBtn.loadGraphic(AssetPaths.si__png);
+			add(siBtn);
+			
+			noBtn = new FlxButton(siBtn.x + adTxt.width, siBtn.y, "", cerrarAd);
+			noBtn.x -= noBtn.width;
+			noBtn.loadGraphic(AssetPaths.no__png);
+			add(noBtn);
+		}
 		if (horas <= 0 && minutos <= 0 && segundos <=0) 
 		{
 			contar = false;
@@ -116,7 +136,7 @@ class MapState extends FlxState
 		sePuede = true;
 	}
 	
-	public function ir():Void
+	public function ir(ad:Bool):Void
 	{
 		cruz.x = clickX - (cruz.width / 2);
 		cruz.y = clickY - (cruz.height / 2);
@@ -128,6 +148,14 @@ class MapState extends FlxState
 		distY = clickY - barquito.y;
 		angulo = (Math.atan2(distY, distX) * 57.2958) + 90;
 		barquito.angle = angulo;
+		
+		if (ad)
+		{
+			horas = 0;
+			minutos = 30;
+			barquito.x += (distX / 2);
+			barquito.y += (distY / 2);
+		}
 	}
 	private function contando(elapsed:Float):Void
 	{
@@ -166,5 +194,19 @@ class MapState extends FlxState
 	{
 		barquito.x += distX / 3600;
 		barquito.y += distY / 3600;
+	}
+	private function verAd():Void
+	{
+		openSubState(new AdSubState());
+		horas = 0;
+		minutos = 0;
+		segundos = 5;
+		cerrarAd();
+	}
+	private function cerrarAd():Void
+	{
+		remove(adTxt);
+		remove(siBtn);
+		remove(noBtn);
 	}
 }
