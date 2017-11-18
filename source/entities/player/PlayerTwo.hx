@@ -31,7 +31,9 @@ class PlayerTwo extends FlxSprite
 		canShot = true;
 		loadGraphic(AssetPaths.Player_Two__png);
 		scale.set(0.5, 0.5);
-		updateHitbox();
+		width = 80;
+		height = 80;
+		centerOffsets();
 		distShot = 0;
 		life = Reg.maxPlayerLife;
 		subst = _subst;
@@ -42,7 +44,7 @@ class PlayerTwo extends FlxSprite
 	override public function update(elapsed:Float):Void 
 	{
 		super.update(elapsed);
-		lifeBar.setPosition(x, y);
+		lifeBar.setPosition(x, y - 100);
 		movement();
 		distanceShot();
 		accelerationControl();

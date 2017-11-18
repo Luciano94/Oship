@@ -30,23 +30,23 @@ class PlayerOne extends FlxSprite
 		velocity.x = 0;
 		angularVelocity = 0;
 		canShot = true;
-		width = width / 2;
 		life = Reg.maxPlayerLife;
 		loadGraphic(AssetPaths.Player_One__png);
 		scale.set(0.5, 0.5);
-		updateHitbox();
+		width = 80;
+		height = 80;
+		centerOffsets();
 		distShot = 0;
 		subst = _subst;
 		lifeBar = new FlxBar(x, y, FlxBarFillDirection.LEFT_TO_RIGHT, 100, 20, this, "life", 0, Reg.maxPlayerLife, true);
 		subst.add(lifeBar);
 		velTotal = 0;
-		updateHitbox();
 	}
 	
 	override public function update(elapsed:Float):Void 
 	{
 		super.update(elapsed);
-		lifeBar.setPosition(x, y);
+		lifeBar.setPosition(x, y - 100);
 		movement();
 		distanceShot();
 		accelerationControl();

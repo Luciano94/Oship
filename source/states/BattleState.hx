@@ -68,24 +68,19 @@ class BattleState extends FlxSubState
 		super.update(elapsed);
 		if (!playerOne.getCanShot())
 			if(playerOne.getBullet().getImpact())
-				FlxG.overlap(playerOne.getBullet(), playerTwo, colPTwoBullet);
+				if (FlxG.pixelPerfectOverlap(playerOne.getBullet(),playerTwo))
+				{
+					playerTwo.getDamage();
+					playerOne.setCanShot(true);
+					playerOne.getBullet().kill();
+				}
 		if (!playerTwo.getCanShot())
 			if(playerTwo.getBullet().getImpact())
-				FlxG.overlap(playerTwo.getBullet(), playerOne, colPOneBullet);
+				if (FlxG.pixelPerfectOverlap(playerTwo.getBullet(), playerOne))
+				{
+					playerOne.getDamage();
+					playerTwo.setCanShot(true);
+					playerTwo.getBullet().kill();
+				}
 	}
-	
-	public function colPOneBullet(B:BulletTwo, p:PlayerOne):Void
-	{
-		p.getDamage();
-		playerTwo.setCanShot(true);
-		B.kill();
-	}
-	
-	public function colPTwoBullet(B:BulletOne, p:PlayerTwo):Void
-	{
-		p.getDamage();
-		playerOne.setCanShot(true);
-		B.kill();
-	}
-	
 }
