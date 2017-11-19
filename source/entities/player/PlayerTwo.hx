@@ -278,6 +278,7 @@ class PlayerTwo extends FlxSprite
 			if (canShot)
 			{
 				bullet = new BulletTwo(x + (width / 2), y + (height / 2), distShot);
+				FlxG.sound.play(AssetPaths.Cannon__ogg);
 				Reg.bulAliveTwo = true;
 				subst.add(bullet);
 				canShot = false;
@@ -316,6 +317,7 @@ class PlayerTwo extends FlxSprite
 		if (life <= 0)
 		{
 			Reg.pOneWin = true;
+			Reg.battleEnd = true;
 			lifeBar.destroy();
 			destroy();
 		}
@@ -324,5 +326,10 @@ class PlayerTwo extends FlxSprite
 	public function getLife():Int
 	{
 		return life;
+	}
+	
+	public function getLifeBar():FlxBar
+	{
+		return lifeBar;
 	}
 }

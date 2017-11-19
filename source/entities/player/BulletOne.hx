@@ -55,7 +55,10 @@ class BulletOne extends FlxSprite
 		if (distShot > 0)
 			distShot --;
 		if (distShot < 5)
+		{
 			impact = true;
+			FlxG.sound.play(AssetPaths.miss__ogg);
+		}
 	}
 	
 	public function getImpact():Bool

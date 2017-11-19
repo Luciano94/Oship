@@ -7,6 +7,7 @@ import flixel.util.FlxColor;
 import flixel.FlxSprite;
 import flixel.FlxG;
 import flixel.ui.FlxBar;
+import flixel.system.FlxSound;
 
 /**
  * ...
@@ -261,6 +262,7 @@ class PlayerOne extends FlxSprite
 			if (canShot)
 			{
 				bullet = new BulletOne(x + (width / 2), y + (height / 2), distShot);
+				FlxG.sound.play(AssetPaths.Cannon__ogg);
 				Reg.bulAliveOne = true;
 				subst.add(bullet);
 				canShot = false;
@@ -319,6 +321,7 @@ class PlayerOne extends FlxSprite
 		if (life <= 0)
 		{
 			Reg.pTwoWin = true;
+			Reg.battleEnd = true;
 			lifeBar.destroy();
 			destroy();
 		}
@@ -327,5 +330,10 @@ class PlayerOne extends FlxSprite
 	public function getLife():Int
 	{
 		return life;
+	}
+	
+	public function getLifeBar():FlxBar
+	{
+		return lifeBar;
 	}
 }

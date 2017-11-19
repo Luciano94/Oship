@@ -11,6 +11,7 @@ class Reg
 	//Battle
 	static public var pOneWin:Bool = false;
 	static public var pTwoWin:Bool = false;
+	static public var battleEnd:Bool = false;
 	//Refer
 	static public var playerOne:PlayerOne;
 	static public var playerTwo:PlayerTwo;

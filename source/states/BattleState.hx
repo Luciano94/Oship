@@ -38,7 +38,7 @@ class BattleState extends FlxSubState
 			{
 				var ola = new FlxSprite();
 				ola.loadGraphic(AssetPaths.tileOceano__png,true,32,32);
-				ola.animation.add("wave", [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15], 8, true);
+				ola.animation.add("wave", [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15], 2, true);
 				ola.animation.play("wave");
 				ola.scale.set(4,4);
 				ola.x = i*128;
@@ -68,17 +68,38 @@ class BattleState extends FlxSubState
 	override public function update(elapsed:Float):Void
 	{
 		super.update(elapsed);
+		trace("one: " + Reg.pOneWin + " two: " + Reg.pTwoWin + " battle: " + Reg.battleEnd);
 		collision();
-		trace (Reg.pOneWin);
+		if (Reg.battleEnd)
+		{
+			checkEscape();
+		}
 		if (Reg.pOneWin)
 		{
+			set_bgColor(0x2200000);
+			playerOne.destroy();
+			playerOne.getLifeBar().destroy();
+			interfaz.destroy();
 			levelClearedSetUp();
 			Reg.pOneWin = false;
 		}
 		if (Reg.pTwoWin)
 		{
+			set_bgColor(0x2200000);
+			playerTwo.getLifeBar().destroy();
+			playerTwo.destroy();
 			levelLostSetUp();
 			Reg.pTwoWin = false;
+		}
+	}
+	
+	private function checkEscape(): Void
+	{
+		if (FlxG.keys.pressed.ESCAPE)
+		{
+			Reg.battleEnd = false;
+			resetSubState();
+			close();
 		}
 	}
 	
@@ -90,7 +111,9 @@ class BattleState extends FlxSubState
 				{
 					playerTwo.getDamage();
 					playerOne.setCanShot(true);
-					playerOne.getBullet().kill();
+					playerOne.getBullet().destroy();
+					Reg.bulAliveOne = false;
+					FlxG.sound.play(AssetPaths.hit__ogg);
 				}
 		if (!playerTwo.getCanShot())
 			if(playerTwo.getBullet().getImpact())
@@ -98,14 +121,16 @@ class BattleState extends FlxSubState
 				{
 					playerOne.getDamage();
 					playerTwo.setCanShot(true);
-					playerTwo.getBullet().kill();
+					playerTwo.getBullet().destroy();
+					Reg.bulAliveTwo = false;
+					FlxG.sound.play(AssetPaths.hit__ogg);
 				}
 	}
 	
 	private function levelClearedSetUp():Void 
 	{
-		levelCleared = new FlxText(0, FlxG.height / 2 - 32, FlxG.width, "You Win!!! \nHas perdido: " + (Reg.maxPlayerLife - playerOne.getLife()) + 
-		" puntos de vida \nHas ganado 50 esclavos\nTu hermana esta mas buena", 64, true);
+		levelCleared = new FlxText(0, FlxG.height / 2 - 32, FlxG.width, "Ganaste!!!\nHas perdido: " + (Reg.maxPlayerLife - playerOne.getLife()) + 
+		" puntos de vida \nHas ganado 50 esclavos\n(Persione Escape para Salir)", 48, true);
 		levelCleared.screenCenter();
 		levelCleared.color = FlxColor.BLACK;
 		levelCleared.setBorderStyle(FlxTextBorderStyle.SHADOW, FlxColor.WHITE, 1, 1);
@@ -116,7 +141,7 @@ class BattleState extends FlxSubState
 	
 	private function levelLostSetUp():Void 
 	{
-		levelCleared = new FlxText(0, FlxG.height / 2 - 32, FlxG.width, "Has Perdido!!!\n Perdiste todos tus recursos, naufragaste y un barco mercante te ha rescatado\nDebes recuperar tu barco y tu honor!!!", 64, true);
+		levelCleared = new FlxText(0, FlxG.height / 2 - 32, FlxG.width, "Has Perdido!!!\n Perdiste todos tus recursos, naufragaste y un barco mercante te ha rescatado\nDebes recuperar tu barco y tu honor!!!\n(Persione Escape para Salir)", 48, true);
 		levelCleared.screenCenter();
 		levelCleared.color = FlxColor.BLACK;
 		levelCleared.setBorderStyle(FlxTextBorderStyle.SHADOW, FlxColor.WHITE, 1, 1);

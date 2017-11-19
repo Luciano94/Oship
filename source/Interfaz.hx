@@ -51,6 +51,16 @@ class Interfaz extends FlxSprite
 		estado.add(barraShot);
 		
 	}
+	
+	override public function destroy():Void 
+	{
+		super.destroy();
+		timon.destroy();
+		barraShot.destroy();
+		barraVel.destroy();
+		boton.destroy();
+	}
+	
 	override public function update(elapsed:Float):Void
 	{
 		if (FlxG.keys.pressed.NUMPADONE) 
