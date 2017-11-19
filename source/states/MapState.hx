@@ -103,6 +103,7 @@ class MapState extends FlxState
 		if (horas <= 0 && minutos <= 0 && segundos <=0) 
 		{
 			contar = false;
+			horas = 1;
 			tiempoText.visible = false;
 			llegar();
 		}

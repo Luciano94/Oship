@@ -131,7 +131,7 @@ class BattleState extends FlxSubState
 	private function levelClearedSetUp():Void 
 	{
 		levelCleared = new FlxText(0, FlxG.height / 2 - 32, FlxG.width, "Ganaste!!!\nHas perdido: " + (Reg.maxPlayerLife - playerOne.getLife()) + 
-		" puntos de vida \nHas ganado 50 esclavos\n(Persione Escape para Salir)", 48, true);
+		" puntos de vida \nHas ganado 50 esclavos\nHas ganado 75 de oro\n(Persione Escape para Salir)", 48);
 		levelCleared.screenCenter();
 		levelCleared.color = FlxColor.BLACK;
 		levelCleared.setBorderStyle(FlxTextBorderStyle.SHADOW, FlxColor.WHITE, 1, 1);
@@ -142,7 +142,7 @@ class BattleState extends FlxSubState
 	
 	private function levelLostSetUp():Void 
 	{
-		levelCleared = new FlxText(0, FlxG.height / 2 - 32, FlxG.width, "Has Perdido!!!\n Perdiste todos tus recursos, naufragaste y un barco mercante te ha rescatado\nDebes recuperar tu barco y tu honor!!!\n(Persione Escape para Salir)", 48, true);
+		levelCleared = new FlxText(0, FlxG.height / 2 - 32, FlxG.width, "Has Perdido!!!\n Perdiste todos tus recursos, naufragaste y un barco mercante te ha rescatado\nDebes recuperar tu barco y tu oro!!!\n(Persione Escape para Salir)", 48, true);
 		levelCleared.screenCenter();
 		levelCleared.color = FlxColor.BLACK;
 		levelCleared.setBorderStyle(FlxTextBorderStyle.SHADOW, FlxColor.WHITE, 1, 1);
