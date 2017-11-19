@@ -68,7 +68,6 @@ class BattleState extends FlxSubState
 	override public function update(elapsed:Float):Void
 	{
 		super.update(elapsed);
-		trace("one: " + Reg.pOneWin + " two: " + Reg.pTwoWin + " battle: " + Reg.battleEnd);
 		collision();
 		if (Reg.battleEnd)
 		{
