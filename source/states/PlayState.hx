@@ -20,16 +20,19 @@ class PlayState extends FlxState
 	override public function create():Void
 	{
 		super.create();
-		playerOne = new PlayerOne(100, 100, this);
-		playerTwo = new PlayerTwo(200, 200, this);
+		playerOne = new PlayerOne(0, 0, this);
+		playerOne.screenCenter();
+		playerOne.y = FlxG.camera.height - playerOne.height;
+		
+		playerTwo = new PlayerTwo(0, 0, this);
+		playerTwo.screenCenter();
+		playerTwo.y = 0;
+		
 		add(playerOne);
 		add(playerTwo);
+		
 		interfaz = new Interfaz(playerOne, this);
 		add(interfaz);
-		//para testear weas animadas
-		//moneda = new SpriteMoneda();
-		//moneda.screenCenter();
-		//add(moneda);
 	}
 
 	override public function update(elapsed:Float):Void
