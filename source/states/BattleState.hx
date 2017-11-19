@@ -55,8 +55,13 @@ class BattleState extends FlxSubState
 			}
 		}
 		
-		playerOne = new PlayerOne(500, 500, this);
-		playerTwo = new PlayerTwo(700, 700, this);
+		playerOne = new PlayerOne(0, 0, this);
+		playerTwo = new PlayerTwo(0, 0, this);
+		playerOne.screenCenter();
+		playerOne.y = FlxG.camera.height - playerOne.height;
+		playerTwo.screenCenter();
+		playerTwo.y = 0;
+		playerTwo.angle = 180;
 		add(playerOne);
 		add(playerTwo);
 		Reg.playerOne = playerOne;

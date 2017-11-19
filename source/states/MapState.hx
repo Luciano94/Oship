@@ -84,7 +84,7 @@ class MapState extends FlxState
 	override public function update(elapsed:Float):Void
 	{
 		super.update(elapsed);
-		if (!FlxG.mouse.overlaps(exitButton) && FlxG.mouse.justPressed) 
+		if (!FlxG.mouse.overlaps(exitButton) && !FlxG.mouse.overlaps(siBtn) && !FlxG.mouse.overlaps(noBtn) && FlxG.mouse.justPressed) 
 		{
 			cartelito();
 		}
