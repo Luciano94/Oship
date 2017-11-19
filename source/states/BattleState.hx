@@ -87,6 +87,7 @@ class BattleState extends FlxSubState
 		{
 			set_bgColor(0x2200000);
 			playerTwo.getLifeBar().destroy();
+			interfaz.destroy();
 			playerTwo.destroy();
 			levelLostSetUp();
 			Reg.pTwoWin = false;
