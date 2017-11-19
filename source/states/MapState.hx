@@ -49,6 +49,13 @@ class MapState extends FlxState
 		adBool = true;
 		iniciar = false;
 		
+		//siBtn = new FlxButton();
+		//noBtn = new FlxButton();
+		//siBtn.visible = false;
+		//noBtn.visible = false;
+		//add(siBtn);
+		//add(noBtn);
+		
 		contar = false;
 		tiempoText = new FlxText(0, 0, 0, "", 20);
 		tiempoText.visible = false;
@@ -84,7 +91,7 @@ class MapState extends FlxState
 	override public function update(elapsed:Float):Void
 	{
 		super.update(elapsed);
-		if (!FlxG.mouse.overlaps(exitButton) && !FlxG.mouse.overlaps(siBtn) && !FlxG.mouse.overlaps(noBtn) && FlxG.mouse.justPressed) 
+		if (!FlxG.mouse.overlaps(exitButton) && FlxG.mouse.justPressed) 
 		{
 			cartelito();
 		}
