@@ -27,6 +27,7 @@ class AdSubState extends FlxSubState
 	{
 		super(BGColor);
 		FlxG.sound.music.pause();
+		FlxG.sound.play(AssetPaths.ElevatorMusic__ogg);
 		ad = new FlxText(0, 0, 0, "Compra fernet o mato a un conejito", 80);
 		ad.screenCenter();
 		ad2 = new FlxText(0, 0, 0, ">:^{D", 80);
@@ -72,6 +73,7 @@ class AdSubState extends FlxSubState
 	}
 	private function salir():Void
 	{
+		FlxG.sound.pause();
 		FlxG.sound.music.resume();
 		this.close();
 	}

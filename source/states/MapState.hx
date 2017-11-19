@@ -7,6 +7,7 @@ import flixel.ui.FlxButton;
 import flixel.util.FlxTimer;
 import source.states.MenuState;
 import flixel.FlxG;
+import flixel.util.FlxColor;
 
 /**
  * ...
@@ -33,6 +34,8 @@ class MapState extends FlxState
 	private var noBtn:FlxButton;
 	private var adTxt:FlxText;
 	private var adBool:Bool;
+	private var iniciar:Bool;
+	private var levelCleared:FlxText;
 	public function new() 
 	{
 		super();
@@ -44,6 +47,7 @@ class MapState extends FlxState
 		minutos = 0;
 		segundos = 20;
 		adBool = true;
+		iniciar = false;
 		
 		contar = false;
 		tiempoText = new FlxText(0, 0, 0, "", 20);
@@ -107,13 +111,30 @@ class MapState extends FlxState
 			tiempoText.visible = false;
 			llegar();
 		}
-		
+		if (FlxG.keys.pressed.ENTER && iniciar)
+		{
+			remove(levelCleared);
+			openSubState(new BattleState());
+		}
 	}			
 	private function llegar():Void
 	{
 		FlxG.sound.music.stop();
-		openSubState(new BattleState());
+		levelStartSetUp();
 	}
+	
+	private function levelStartSetUp():Void 
+	{
+		levelCleared = new FlxText(0, FlxG.height / 2 - 32, FlxG.width, "Parece que un barco enemigo ha llegado antes que tu, reclama tu isla", 48);
+		levelCleared.screenCenter();
+		levelCleared.color = FlxColor.BLACK;
+		levelCleared.setBorderStyle(FlxTextBorderStyle.SHADOW, FlxColor.WHITE, 1, 1);
+		levelCleared.alignment = FlxTextAlign.CENTER;
+		levelCleared.scrollFactor.set(0, 0);
+		add(levelCleared);
+		iniciar = true;
+	}
+	
 	private function salir():Void
 	{
 		FlxG.switchState(new MenuState());
