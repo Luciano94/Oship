@@ -10,6 +10,7 @@ import AssetPaths;
 import flixel.util.FlxSpriteUtil;
 import states.AdSubState;
 import states.BattleState;
+import states.ComoJugarSubState;
 import states.MapState;
 import states.OptionSubState;
 import openfl.system.System;
@@ -93,6 +94,6 @@ class MenuState extends FlxState
 	}
 	private function clickComo():Void
 	{
-		openSubState(new BattleState());
+		openSubState(new ComoJugarSubState());
 	}
 }
